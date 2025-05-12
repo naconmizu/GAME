@@ -348,14 +348,19 @@ texture = ExtResource("2_0e48y")
 7:3/0 = 0
 9:3/0 = 0
 9:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:3/0/physics_layer_0/polygon_0/one_way = true
 10:3/0 = 0
 10:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:3/0/physics_layer_0/polygon_0/one_way = true
 11:3/0 = 0
 11:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+11:3/0/physics_layer_0/polygon_0/one_way = true
 12:3/0 = 0
 12:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+12:3/0/physics_layer_0/polygon_0/one_way = true
 13:3/0 = 0
 13:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+13:3/0/physics_layer_0/polygon_0/one_way = true
 15:3/0 = 0
 1:4/0 = 0
 2:4/0 = 0
@@ -937,11 +942,11 @@ position = Vector2(1, -22)
 shape = SubResource("RectangleShape2D_epypp")
 
 [node name="animação" type="AnimatedSprite2D" parent="personagem"]
-position = Vector2(5, -31)
+position = Vector2(4, -25)
 sprite_frames = SubResource("SpriteFrames_rj586")
-animation = &"combo"
+animation = &"parado"
 autoplay = "parado"
-frame_progress = 0.98449
+frame = 3
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(3, 0)
@@ -982,7 +987,8 @@ position = Vector2(-3.5, 12)
 shape = SubResource("RectangleShape2D_nr8wp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="minotauro/CollisionShape2D"]
-position = Vector2(-3.5, 23)
+position = Vector2(2.5, -13)
 sprite_frames = SubResource("SpriteFrames_vl5tj")
-animation = &"parado"
-autoplay = "parado"
+animation = &"atacar"
+autoplay = "atacar"
+frame_progress = 0.360063
