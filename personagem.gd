@@ -5,7 +5,7 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var jump := true
 
-@onready var textura := $animação as AnimatedSprite2D
+@onready var textura := $animation as AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

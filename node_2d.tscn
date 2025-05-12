@@ -941,7 +941,7 @@ shape = SubResource("RectangleShape2D_d2bti")
 position = Vector2(1, -22)
 shape = SubResource("RectangleShape2D_epypp")
 
-[node name="animação" type="AnimatedSprite2D" parent="personagem"]
+[node name="animation" type="AnimatedSprite2D" parent="personagem"]
 position = Vector2(4, -25)
 sprite_frames = SubResource("SpriteFrames_rj586")
 animation = &"parado"
