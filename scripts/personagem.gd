@@ -5,7 +5,16 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var jump := true
 
-@onready var textura := $animation as AnimatedSprite2D
+@onready var textura := $animação as AnimatedSprite2D
+
+
+
+func _process(delta: float) -> void:
+	if position.y < -30 :
+		position.y = -23
+		position.x = 13
+
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -14,11 +23,11 @@ func _physics_process(delta: float) -> void:
 		textura.play("pular")
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_down") and is_on_floor():
-		textura.play("agachar")
+	if Input.is_action_just_pressed("pular") and is_on_floor():
+		textura.play("pular") 
 		
-	if Input.is_action_just_pressed("ui_right"):
-		textura.play("atacar")
+	if Input.is_action_just_pressed("ataque"):
+		textura.play("combo")
 			
 	if Input.is_action_just_pressed("ui_up") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
