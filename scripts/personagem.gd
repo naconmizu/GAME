@@ -7,7 +7,7 @@ const JUMP_VELOCITY = -400.0
 
 func _ready() -> void:
 	textura.animation_finished.connect(_on_ataque_finalizado)
-
+	textura.animation_changed.connect(_on_anim_changed)
 
 func _physics_process(delta: float) -> void:
 	aplicar_gravidade(delta)
@@ -33,7 +33,7 @@ func tratar_input_movimento(delta: float) -> void:
 	
 	if textura.animation == "atacar":
 		print("n ta pulando por isso")
-		pass
+		return
 	# Pulo
 	if Input.is_action_just_pressed("ui_up") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -71,3 +71,13 @@ func _on_ataque_finalizado() -> void:
 	# só volto pro "parado" se a animação atual for mesmo "atacar"
 	if textura.animation == "atacar":
 		textura.play("parado")
+
+
+
+func _on_anim_changed() -> void:
+	# checa diretamente a propriedade textura.animation
+	
+	if textura.animation == "atacar":
+		textura.position = Vector2(0, -20)
+	else:
+		textura.position = Vector2(0,-10)

@@ -944,13 +944,12 @@ shape = SubResource("RectangleShape2D_epypp")
 [node name="animação" type="AnimatedSprite2D" parent="personagem"]
 visibility_layer = 513
 z_index = 20
-position = Vector2(13, -23)
-scale = Vector2(0.903125, 0.9375)
+position = Vector2(14, -13)
+scale = Vector2(0.903125, 0.953125)
 sprite_frames = SubResource("SpriteFrames_rj586")
-animation = &"atacar"
+animation = &"correr"
 autoplay = "parado"
-frame = 1
-frame_progress = 0.610261
+offset = Vector2(0, -11.45)
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(3, 0)
