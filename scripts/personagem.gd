@@ -1,50 +1,73 @@
 extends CharacterBody2D
 
-
-const SPEED = 200.0
+const SPEED = 150.0
 const JUMP_VELOCITY = -400.0
-var jump := true
 
-@onready var textura := $animação as AnimatedSprite2D
+@onready var textura: AnimatedSprite2D = $animação
+
+func _ready() -> void:
+	textura.animation_finished.connect(_on_ataque_finalizado)
+
+
+func _physics_process(delta: float) -> void:
+	aplicar_gravidade(delta)
+	tratar_input_movimento(delta)
+	move_and_slide()
 
 
 
 func _process(delta: float) -> void:
-	if position.y < -30 :
-		position.y = -23
-		position.x = 13
-
-
-
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-		textura.play("pular")
-
-	# Handle jump.
-	if Input.is_action_just_pressed("pular") and is_on_floor():
-		textura.play("pular") 
-		
+	checar_morte()
 	if Input.is_action_just_pressed("ataque"):
-		textura.play("combo")
-			
+		atacar()
+	print("animation:", textura.animation)   # <<< aqui!
+
+
+func aplicar_gravidade(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
+
+
+
+func tratar_input_movimento(delta: float) -> void:
+	
+	if textura.animation == "atacar":
+		print("n ta pulando por isso")
+		pass
+	# Pulo
 	if Input.is_action_just_pressed("ui_up") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * (SPEED+10)
-		textura.play("correr")
-		textura.scale.x = direction
-		if !jump:
-			textura.play("correr")
-		elif is_on_floor():
-			jump = false
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		textura.play("parado")
+	# Movimento horizontal
+	var dir := Input.get_axis("ui_left", "ui_right")
 
-	move_and_slide()
+	if dir != 0:
+		velocity.x = dir * SPEED
+		textura.scale.x = dir
+		if is_on_floor() and textura.animation != "atacar":
+			textura.play("correr")
+	else:
+		# Desaceleração suave
+		velocity.x = move_toward(velocity.x, 0, 800 * delta)
+		if is_on_floor() and textura.animation != "atacar":
+			textura.play("parado")
+
+	# DEBUG opcional
+	print("Eixo: ", dir)
+
+func checar_morte() -> void:
+	# Se cair abaixo de certo Y, “reset” de posição
+	if position.y > 350:
+		position = Vector2(13, 304)
+
+
+func atacar() -> void:
+	if is_on_floor() and textura.animation != "atacar":
+		textura.play("atacar")
+
+
+ 
+func _on_ataque_finalizado() -> void:
+	# só volto pro "parado" se a animação atual for mesmo "atacar"
+	if textura.animation == "atacar":
+		textura.play("parado")
